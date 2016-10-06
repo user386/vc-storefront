@@ -103,6 +103,12 @@ namespace VirtoCommerce.LiquidThemeEngine.Objects
         public string PreviousProduct { get; set; }
 
         /// <summary>
+        /// Returns the id of the parent category.
+        /// </summary>
+        [DataMember]
+        public string ParentId { get; set; }
+
+        /// <summary>
         /// Returns paged collection of products
         /// </summary>
         public IMutablePagedList<Product> Products { get; set; }

@@ -17,6 +17,7 @@ namespace VirtoCommerce.LiquidThemeEngine.Converters
                 Description = null,
                 Handle = category.SeoInfo != null ? category.SeoInfo.Slug : category.Id,
                 Title = category.Name,
+                ParentId = category.ParentId,
                 Url = category.Url,
                 DefaultSortBy = "manual",
             };

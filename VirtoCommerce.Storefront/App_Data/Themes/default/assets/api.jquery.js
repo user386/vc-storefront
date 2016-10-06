@@ -29,7 +29,11 @@ Getting base URL
 
 */
 
-var baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
+var bases = document.getElementsByTagName('base');
+var baseUrl = null;
+if (bases.length > 0) {
+    baseUrl = bases[0].href;
+}
 
 /*
 

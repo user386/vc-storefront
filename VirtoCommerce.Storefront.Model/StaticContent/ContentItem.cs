@@ -120,6 +120,7 @@ namespace VirtoCommerce.Storefront.Model.StaticContent
                                 DateTime.TryParse(settingValue, out createdDate);
                             }
                             CreatedDate = createdDate;
+                            //CreatedDate = DateTime.Now;
                             PublishedDate = createdDate;
                             break;
                         case "tags":

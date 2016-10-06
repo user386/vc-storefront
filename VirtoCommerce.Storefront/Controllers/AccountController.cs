@@ -21,6 +21,10 @@ using VirtoCommerce.Storefront.Model.Customer.Services;
 using VirtoCommerce.Storefront.Model.Order.Events;
 using coreModel = VirtoCommerce.CoreModule.Client.Model;
 using shopifyModel = VirtoCommerce.LiquidThemeEngine.Objects;
+using System.Net.Http;
+using System.Web.Http;
+using System.Net.Http.Headers;
+using System.Net;
 
 namespace VirtoCommerce.Storefront.Controllers
 {
@@ -54,7 +58,6 @@ namespace VirtoCommerce.Storefront.Controllers
             //Customer should be already populated in WorkContext middle-ware
             return View("customers/account", WorkContext);
         }
-
 
         //POST: /account
         [HttpPost]
@@ -157,48 +160,63 @@ namespace VirtoCommerce.Storefront.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Register(Register formModel)
         {
+            ContactExt.Entities db = new ContactExt.Entities();
+            var order = new ContactExt.ContactExt()
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = formModel.FirstName + " " + formModel.LastName,
+                Email = formModel.Email,
+                Division = formModel.Division,
+                District = formModel.District,
+                PostalCode = formModel.PostalCode,
+                Address = formModel.Address,
+                IsRunningStore = formModel.IsRunningStore,
+                newMemberType = formModel.newMemberType,
+                CatalogType = formModel.CatalogType,
+                CompanyName = formModel.CompanyName,
+                TaxId = formModel.TaxId,
+                BusinessOwner = formModel.BusinessOwner,
+                ContactName = formModel.ContactName,
+                ContactNumber = formModel.ContactNumber
+            };
+            db.ContactExt.Add(order);
+            db.SaveChanges();
             var user = new coreModel.ApplicationUserExtended
             {
-                Email = formModel.Email,
-                Password = formModel.Password,
-                UserName = formModel.Email,
-                UserType = "Customer",
-                StoreId = WorkContext.CurrentStore.Id,
+                //Email = formModel.Email,
+                //Password = formModel.Password,
+                //UserName = formModel.Email,
+                //UserType = "Customer",
+                //StoreId = WorkContext.CurrentStore.Id,
             };
-            //Register user in VC Platform (create security account)
+            ////Register user in VC Platform (create security account)
             var result = await _commerceCoreApi.StorefrontSecurityCreateAsync(user);
-
-            if (result.Succeeded == true)
-            {
-                //Load newly created account from API
-                var storefrontUser = await _commerceCoreApi.StorefrontSecurityGetUserByNameAsync(user.UserName);
-
-                //Next need create corresponding Customer contact in VC Customers (CRM) module
-                //Contacts and account has the same Id.
-                var customer = formModel.ToWebModel();
-                customer.Id = storefrontUser.Id;
-                customer.UserId = storefrontUser.Id;
-                customer.UserName = storefrontUser.UserName;
-                customer.IsRegisteredUser = true;
-                customer.AllowedStores = storefrontUser.AllowedStores;
-                await _customerService.CreateCustomerAsync(customer);
-
-                await _commerceCoreApi.StorefrontSecurityPasswordSignInAsync(storefrontUser.UserName, formModel.Password);
-
-                var identity = CreateClaimsIdentity(customer);
-                _authenticationManager.SignIn(identity);
-
-                //Publish user login event 
-                await _userLoginEventPublisher.PublishAsync(new UserLoginEvent(WorkContext, WorkContext.CurrentCustomer, customer));
-
-                return StoreFrontRedirect("~/account");
-            }
-            else
-            {
-                ModelState.AddModelError("form", result.Errors.First());
-            }
-
-            return View("customers/register", WorkContext);
+            //if (result.Succeeded == true)
+            //{
+            //    //Load newly created account from API
+            //    var storefrontUser = await _commerceCoreApi.StorefrontSecurityGetUserByNameAsync(user.UserName);
+            //    //Next need create corresponding Customer contact in VC Customers (CRM) module
+            //    //Contacts and account has the same Id.
+            //    var customer = formModel.ToWebModel();
+            //    customer.Id = storefrontUser.Id;
+            //    customer.UserId = storefrontUser.Id;
+            //    customer.UserName = storefrontUser.UserName;
+            //    customer.IsRegisteredUser = true;
+            //    customer.AllowedStores = storefrontUser.AllowedStores;
+            //    await _customerService.CreateCustomerAsync(customer);
+            //    await _commerceCoreApi.StorefrontSecurityPasswordSignInAsync(storefrontUser.UserName, formModel.Password);
+            //    var identity = CreateClaimsIdentity(customer);
+            //    _authenticationManager.SignIn(identity);
+            //    //Publish user login event 
+            //    await _userLoginEventPublisher.PublishAsync(new UserLoginEvent(WorkContext, WorkContext.CurrentCustomer, customer));
+            //return StoreFrontRedirect("~/account");
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("form", result.Errors.First());
+            //}
+            //return View("customers/register", WorkContext);
+            return RedirectToAction("Index","StorefrontHome", new { area = "" });
         }
 
         [HttpGet]

@@ -15,7 +15,6 @@ namespace VirtoCommerce.Storefront.Controllers
         protected IStorefrontUrlBuilder UrlBuilder { get; private set; }
         protected WorkContext WorkContext { get; private set; }
 
-
         protected RedirectResult StoreFrontRedirect(string url)
         {
             var newUrl = Url.IsLocalUrl(url) ? url : "~/";

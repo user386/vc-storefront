@@ -39,7 +39,13 @@
       <HintPath>..\packages\DotLiquid.VirtoCommerce.1.8.3\lib\NET45\DotLiquid.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LibSassNetProxy">
+    <Reference Include="LibSass.x64">
+      <HintPath>..\packages\libsassnet.x64.3.2.5.1\lib\net40\LibSass.x64.dll</HintPath>
+    </Reference>
+    <Reference Include="libsassnet">
+      <HintPath>..\packages\libsassnet.x64.3.2.5.1\lib\net40\libsassnet.dll</HintPath>
+    </Reference>
+    <Reference Include="LibSassNetProxy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Shared\LibSassNetProxy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -226,6 +232,9 @@
       <Project>{fd2f9490-83eb-40df-a61b-7e4098d35bd8}</Project>
       <Name>VirtoCommerce.Storefront.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

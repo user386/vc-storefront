@@ -79,15 +79,12 @@ Shopify.formatMoney = function(cents, format) {
   }
   return formatString.replace(patt, value);
 };
-
 Shopify.onProduct = function(product) {
   // alert('Received everything we ever wanted to know about ' + product.title);
 };
-
 Shopify.onCartUpdate = function(cart) {
   // alert('There are now ' + cart.item_count + ' items in the cart.');
 };
-
 Shopify.updateCartNote = function(note, callback) {
   var params = {
     type: 'POST',
@@ -108,7 +105,6 @@ Shopify.updateCartNote = function(note, callback) {
   };
   jQuery.ajax(params);
 };
-
 Shopify.onError = function(XMLHttpRequest, textStatus) {
   var data = eval('(' + XMLHttpRequest.responseText + ')');
   if (!!data.message) {
@@ -173,7 +169,6 @@ Shopify.addItemFromForm = function(form, callback, errorCallback) {
   };
   jQuery.ajax(params);
 };
-
 // Get from cart.js returns the cart in JSON
 Shopify.getCart = function(callback) {
   jQuery.getJSON(baseUrl + '/cart.js', function (cart, textStatus) {
@@ -185,7 +180,6 @@ Shopify.getCart = function(callback) {
     }
   });
 };
-
 // GET products/<product-handle>.js returns the product in JSON
 Shopify.getProduct = function(handle, callback) {
   jQuery.getJSON('/products/' + handle + '.js', function (product, textStatus) {
@@ -197,7 +191,6 @@ Shopify.getProduct = function(handle, callback) {
     }
   });
 };
-
 // POST to cart/change.js returns the cart in JSON
 Shopify.changeItem = function(variant_id, quantity, callback) {
   var params = {
@@ -224,7 +217,6 @@ Shopify.changeItem = function(variant_id, quantity, callback) {
   Ajaxify Shopify Add To Cart
 ==============================================================================*/
 var ajaxifyShopify = (function(module, $) {
-
   'use strict';
 
   // Public functions
@@ -243,7 +235,6 @@ var ajaxifyShopify = (function(module, $) {
     Initialise the plugin and define global options
   ==============================================================================*/
   init = function (options) {
-
     // Default settings
     settings = {
       method: 'drawer', // Method options are drawer, modal, and flip. Default is drawer.
@@ -342,7 +333,6 @@ var ajaxifyShopify = (function(module, $) {
     // Run this function in case we're using the quantity selector outside of the cart
     adjustCart();
   };
-
   updateCountPrice = function (cart) {
     if ($cartCountSelector) {
       $cartCountSelector.html(cart.item_count).removeClass('hidden-count');
@@ -355,7 +345,6 @@ var ajaxifyShopify = (function(module, $) {
       $cartCostSelector.html(Shopify.formatMoney(cart.total_price, settings.moneyFormat));
     }
   };
-
   flipSetup = function () {
     // Build and append the drawer in the DOM
     drawerSetup();
@@ -398,11 +387,9 @@ var ajaxifyShopify = (function(module, $) {
       revertFlipButton();
     })
   };
-
   revertFlipButton = function () {
     $flipContainer.removeClass('is-flipped');
   };
-
   modalSetup = function () {
     // Create modal DOM elements with handlebars.js template
     var source   = $("#modalTemplate").html(),
@@ -446,7 +433,6 @@ var ajaxifyShopify = (function(module, $) {
     // Toggle modal with cart button
     setToggleButtons();
   };
-
   showModal = function (toggle) {
     $body.addClass('ajaxify-modal--visible');
     // Build the cart if it isn't already there
@@ -456,7 +442,6 @@ var ajaxifyShopify = (function(module, $) {
       sizeModal();
     }
   };
-
   sizeModal = function(isResizing) {
     if (!isResizing) {
       $modalContainer.css('opacity', 0);
@@ -481,7 +466,6 @@ var ajaxifyShopify = (function(module, $) {
       'is_visible': true
     });
   };
-
   hideModal = function (e) {
     $body.removeClass('ajaxify-modal--visible');
     if (e) {
@@ -497,7 +481,6 @@ var ajaxifyShopify = (function(module, $) {
       'is_visible': false
     });
   };
-
   drawerSetup = function () {
     // Create drawer DOM elements with handlebars.js template
     var source   = $("#drawerTemplate").html(),
@@ -544,7 +527,6 @@ var ajaxifyShopify = (function(module, $) {
       }
     }
   };
-
   showDrawer = function (toggle) {
     // If we're toggling with the flip method, use a special callback
     if (settings.method == 'flip') {
@@ -568,7 +550,6 @@ var ajaxifyShopify = (function(module, $) {
       'is_visible': true
     });
   };
-
   hideDrawer = function () {
     $drawerContainer.removeAttr('style').removeClass('is-visible');
     scrollTop();
@@ -576,7 +557,6 @@ var ajaxifyShopify = (function(module, $) {
       'is_visible': false
     });
   };
-
   sizeDrawer = function ($empty) {
     if ($empty) {
       $drawerContainer.css('height', '0px');
@@ -586,7 +566,6 @@ var ajaxifyShopify = (function(module, $) {
       $drawerContainer.css('height',  $drawerHeight + 'px');
     }
   };
-
   loadCartImages = function () {
     // Size cart once all images are loaded
     var cartImages = $('img', $cartContainer),
@@ -609,7 +588,6 @@ var ajaxifyShopify = (function(module, $) {
       }
     });
   };
-
   formOverride = function () {
     $formContainer.submit(function(e) {
       e.preventDefault();
@@ -630,7 +608,6 @@ var ajaxifyShopify = (function(module, $) {
       }
     });
   };
-
   itemAddedCallback = function (product) {
     $addToCart.removeClass('is-adding').addClass('is-added');
 
@@ -644,7 +621,6 @@ var ajaxifyShopify = (function(module, $) {
     }
     Shopify.getCart(cartUpdateCallback);
   };
-
   itemErrorCallback = function (XMLHttpRequest, textStatus) {
     switch (settings.method) {
       case 'flip':
@@ -659,7 +635,6 @@ var ajaxifyShopify = (function(module, $) {
       }
     }
   };
-
   cartUpdateCallback = function (cart) {
     // Update quantity and price
     updateCountPrice(cart);
@@ -681,7 +656,6 @@ var ajaxifyShopify = (function(module, $) {
         break;
     }
   };
-
   setToggleButtons = function () {
     // Reselect the element in case it just loaded
     $toggleCartButton  = $(settings.toggleCartButton);
@@ -716,11 +690,9 @@ var ajaxifyShopify = (function(module, $) {
 
     }
   };
-
   flipCartUpdateCallback = function (cart) {
     buildCart(cart);
   };
-
   buildCart = function (cart) {
     // Empty cart if using default layout or not using the .load method to get /cart
     if (!settings.useCartTemplate || cart.item_count === 0) {
@@ -823,7 +795,6 @@ var ajaxifyShopify = (function(module, $) {
     // Mark the cart as built
     cartInit = true;
   };
-
   cartTemplate = function (cart) {
     $cartContainer.load(baseUrl + '/cart form[action="' + baseUrl + '/cart"]', function() {
 
@@ -851,7 +822,6 @@ var ajaxifyShopify = (function(module, $) {
       cartInit = true;
     });
   }
-
   adjustCart = function () {
     // This function runs on load, and when the cart is reprinted
 
@@ -964,7 +934,6 @@ var ajaxifyShopify = (function(module, $) {
       Shopify.updateCartNote(newNote, function(cart) {});
     });
   };
-
   adjustCartCallback = function (cart) {
     // Update quantity and price
     updateCountPrice(cart);
@@ -987,7 +956,6 @@ var ajaxifyShopify = (function(module, $) {
       Shopify.getCart(buildCart);
     }, 150)
   };
-
   createQtySelectors = function() {
     // If there is a normal quantity number field in the ajax cart, replace it with our version
     if ($('input[type="number"]', $cartContainer).length) {
@@ -1020,7 +988,6 @@ var ajaxifyShopify = (function(module, $) {
       });
     }
   };
-
   qtySelectors = function() {
     // Change number inputs to JS ones, similar to ajax cart but without API integration.
     // Make sure to add the existing name and id to the new input element
@@ -1072,7 +1039,6 @@ var ajaxifyShopify = (function(module, $) {
       });
     }
   };
-
   scrollTop = function () {
     if ($body.scrollTop() > 0 || $html.scrollTop() > 0) {
       $('html, body').animate({
@@ -1080,18 +1046,14 @@ var ajaxifyShopify = (function(module, $) {
       }, 250, 'swing');
     }
   };
-
   toggleCallback = function (data) {
     // Run the callback if it's a function
     if (typeof settings.onToggleCallback == 'function') {
       settings.onToggleCallback.call(this, data);
     }
   };
-
   module = {
     init: init
   };
-
   return module;
-
 }(ajaxifyShopify || {}, jQuery));

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ContactExt.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ContactExt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="Division" Type="nvarchar" MaxLength="64" />
+          <Property Name="District" Type="nvarchar" MaxLength="64" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="32" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsRunningStore" Type="bit" Nullable="false" />
+          <Property Name="newMemberType" Type="nvarchar" MaxLength="128" />
+          <Property Name="CatalogType" Type="nvarchar" MaxLength="256" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="128" />
+          <Property Name="TaxId" Type="nvarchar" MaxLength="32" />
+          <Property Name="BusinessOwner" Type="nvarchar" MaxLength="128" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="128" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityContainer Name="ContactExtStoreContainer">
+          <EntitySet Name="ContactExt" EntityType="Self.ContactExt" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContactExt" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ContactExt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Division" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsRunningStore" Type="Boolean" Nullable="false" />
+          <Property Name="newMemberType" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CatalogType" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TaxId" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="BusinessOwner" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ContactExt" EntityType="Self.ContactExt" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContactExtStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="ContactExt">
+            <EntityTypeMapping TypeName="ContactExt.ContactExt">
+              <MappingFragment StoreEntitySet="ContactExt">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Division" ColumnName="Division" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsRunningStore" ColumnName="IsRunningStore" />
+                <ScalarProperty Name="newMemberType" ColumnName="newMemberType" />
+                <ScalarProperty Name="CatalogType" ColumnName="CatalogType" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="TaxId" ColumnName="TaxId" />
+                <ScalarProperty Name="BusinessOwner" ColumnName="BusinessOwner" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
